@@ -1,0 +1,57 @@
+body {
+  background-color: black;
+}
+
+.bio p {
+  color: white;
+}
+
+.navbar {
+  background-color: transparent !important;
+  position: relative;
+  z-index: 1;
+  padding-left: 55px;
+  padding-right: 140px;
+  padding-top: 0px ;
+}
+
+#nosotros {
+  color: #ffffff;
+}
+
+.navbar-brand img {
+  height: 36px;
+  margin-right: 10px;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.carousel-inner {
+  margin-top: -56px;
+}
+
+.navbar-white-text {
+  color: #ffffff !important;
+}
+
+.icon-container {
+  color: white;
+  position: relative;
+  top: -1rem;
+  padding: 20px;
+}
+
+.card-margin {
+  margin-bottom: 30px;
+}
+
+.white-text {
+  color: #ffffff;
+}
+
+.footer {
+  background-color: #333;
+  padding: 20px 0;
+}
