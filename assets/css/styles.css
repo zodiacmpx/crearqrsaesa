@@ -1,9 +1,17 @@
 .container {
-	max-width: 400px;
-	margin: 0 auto;
-	text-align: center; 
+  max-width: 80%; /* Adjust as needed */
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.qrcode {
+  margin-top: 20px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+  .container {
+    max-width: 100%;
   }
-  
-  .qrcode {
-	margin-top: 20px;
-  }
+}
