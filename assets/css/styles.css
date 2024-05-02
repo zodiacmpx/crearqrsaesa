@@ -1,5 +1,5 @@
 .container {
-  max-width: 80%; /* Adjust as needed */
+  max-width: 80%; /* Ajustar según sea necesario */
   margin: 0 auto;
   text-align: center;
   padding: 20px;
@@ -9,7 +9,7 @@
   margin-top: 20px;
 }
 
-/* Responsive styles */
+/* Estilo para pantallas pequeñas */
 @media screen and (max-width: 600px) {
   .container {
     max-width: 100%;
