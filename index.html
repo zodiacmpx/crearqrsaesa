@@ -32,6 +32,7 @@
   <div class="container">
 
     <select id="marca">
+      <!-- Opciones existentes -->
       <option value="Legy">Legy</option>
       <option value="Lexo">Lexo</option>
       <option value="Ekoline">Ekoline</option>
@@ -45,7 +46,6 @@
       <option value="ENERLUX">ENERLUX</option>
       <option value="ITRON">ITRON</option>
       <option value="BEKAM">BEKAM</option>
-      <option value="Landis">Landis</option>
       <option value="General">General</option>
       <option value="DRL">DRL</option>
       <option value="Forceman">Forceman</option>
@@ -53,12 +53,32 @@
       <option value="Enerlux">Enerlux</option>
       <option value="GENERAL ELECTRIC">GENERAL ELECTRIC</option>
       <option value="EDMI">EDMI</option>
-      <option value="RHONA">RHONA</option>
       <option value="CHINT">CHINT</option>
       <option value="SANGAMO">SANGAMO</option>
-      <option value="WASION">WASION</option>
+
+      <!-- Opciones WASION con modelos -->
+      <option value="WASION_DDZ101">WASION (DDZ101)</option>
+      <option value="WASION_DDS102">WASION (DDS102)</option>
+      <option value="WASION_DDS103">WASION (DDS103)</option>
+      <option value="WASION_DDZ201">WASION (DDZ201)</option>
+      <option value="WASION_DDS301">WASION (DDS301)</option>
+
+      <!-- Opciones adicionales -->
       <option value="COMDIA">COMDIA</option>
       <option value="ACLARA">ACLARA</option>
+      <option value="FNX">FNX</option>
+      <option value="FOREMAN">FOREMAN</option>
+      <option value="EMH">EMH</option>
+      <option value="Itron">Itron</option>
+      <option value="PROGOS">PROGOS</option>
+      <option value="TRANSFOVAL">TRANSFOVAL</option>
+      <option value="SCHAFFNER">SCHAFFNER</option>
+      <option value="OPEN">OPEN</option>
+      <option value="Scorpion">Scorpion</option>
+      <option value="LINYANG">LINYANG</option>
+      <option value="Sindelen">Sindelen</option>
+      <option value="HEXING">HEXING</option>
+      <!-- Aquí puedes seguir agregando los que falten -->
     </select>
 
     <input type="text" id="numeroSerie" placeholder="Ingresa número de serie">
@@ -96,6 +116,7 @@
     // Función para obtener información adicional según la marca
     function obtenerInformacionAdicional(marca) {
       switch (marca) {
+        // Casos existentes
         case "Legy":
           return "55050010,DDS608";
         case "Lexo":
@@ -140,12 +161,49 @@
           return "55000110,17-42";
         case "SANGAMO":
           return "99100824,SDM";
-        case "WASION":
+
+        // Casos WASION con diferentes modelos
+        case "WASION_DDZ101":
           return "55002180,DDZ101";
+        case "WASION_DDS102":
+          return "55007210,DDS102";
+        case "WASION_DDS103":
+          return "55007300,DDS103";
+        case "WASION_DDZ201":
+          return "55007400,DDZ201";
+        case "WASION_DDS301":
+          return "55007500,DDS301";
+
+        // Nuevos casos agregados
         case "COMDIA":
           return "99100668,DDS608";
         case "ACLARA":
           return "55050110,SGM1411";
+        case "FNX":
+          return "55002150,DD862";
+        case "FOREMAN":
+          return "55000300,dd862";
+        case "EMH":
+          return "55005030,NXT4";
+        case "Itron":
+          return "99100733,SDM";
+        case "PROGOS":
+          return "99250110,CM3H";
+        case "TRANSFOVAL":
+          return "35001470,CM2H";
+        case "SCHAFFNER":
+          return "35001430,CM3H";
+        case "OPEN":
+          return "99100747,SDM";
+        case "Scorpion":
+          return "55000150,SC-MR";
+        case "LINYANG":
+          return "55002100,DDS71";
+        case "Sindelen":
+          return "99100118,SDM";
+        case "HEXING":
+          return "55007200,XHL34-2";
+        // Puedes continuar con más marcas y modelos aquí
         default:
           return "";
       }
