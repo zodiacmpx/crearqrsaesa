@@ -56,12 +56,13 @@
       <option value="CHINT,55000110,17-42">CHINT</option>
       <option value="SANGAMO,99100824,SDM">SANGAMO</option>
 
-      <!-- Opciones WASION con modelos -->
-      <option value="WASION,DDZ101">WASION (DDZ101)</option>
-      <option value="WASION,DDS102">WASION (DDS102)</option>
-      <option value="WASION,DDS103">WASION (DDS103)</option>
-      <option value="WASION,DDZ201">WASION (DDZ201)</option>
-      <option value="WASION,DDS301">WASION (DDS301)</option>
+<!-- Opciones WASION con modelos y datos adicionales -->
+<option value="WASION,55000001,DDZ101">WASION (DDZ101)</option>
+<option value="WASION,55000002,DDS102">WASION (DDS102)</option>
+<option value="WASION,55000003,DDS103">WASION (DDS103)</option>
+<option value="WASION,55000004,DDZ201">WASION (DDZ201)</option>
+<option value="WASION,55000005,DDS301">WASION (DDS301)</option>
+
 
       <!-- Opciones adicionales -->
       <option value="COMDIA,99100668,DDS608">COMDIA</option>
@@ -92,17 +93,19 @@
 
   <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   <script>
-    function generarQR() {
-      var marcaSeleccionada = document.getElementById("marca").value;
-      var numeroSerie = document.getElementById("numeroSerie").value;
+function generarQR() {
+    var marcaSeleccionada = document.getElementById("marca").value;
+    var numeroSerie = document.getElementById("numeroSerie").value;
 
-      // Crear el texto para el código QR
-      var textoQR = marcaSeleccionada.split(",")[0] + "," + numeroSerie + "," + marcaSeleccionada.split(",")[1] + "," + marcaSeleccionada.split(",")[2];
+    // Crear el texto para el código QR
+    var partes = marcaSeleccionada.split(",");
+    var textoQR = partes[0] + "," + numeroSerie + "," + partes[1] + "," + partes[2];
 
-      // Generar el código QR
-      var qrcode = new QRCode("qrcode");
-      qrcode.makeCode(textoQR);
-    }
+    // Generar el código QR
+    var qrcode = new QRCode("qrcode");
+    qrcode.makeCode(textoQR);
+}
+
 
     function limpiarQR() {
       document.getElementById("marca").value = "";
