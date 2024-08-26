@@ -33,51 +33,51 @@
 
     <select id="marca">
       <!-- Opciones existentes -->
-      <option value="Legy">Legy</option>
-      <option value="Lexo">Lexo</option>
-      <option value="Ekoline">Ekoline</option>
-      <option value="Osaki">Osaki</option>
-      <option value="Landis">Landis</option>
-      <option value="Ebasee">Ebasee</option>
-      <option value="Actaris">Actaris</option>
-      <option value="Schlumberger">Schlumberger</option>
-      <option value="RHONA">RHONA</option>
-      <option value="Huabang">Huabang</option>
-      <option value="ENERLUX">ENERLUX</option>
-      <option value="ITRON">ITRON</option>
-      <option value="BEKAM">BEKAM</option>
-      <option value="General">General</option>
-      <option value="DRL">DRL</option>
-      <option value="Forceman">Forceman</option>
-      <option value="Delixi">Delixi</option>
-      <option value="Enerlux">Enerlux</option>
-      <option value="GENERAL ELECTRIC">GENERAL ELECTRIC</option>
-      <option value="EDMI">EDMI</option>
-      <option value="CHINT">CHINT</option>
-      <option value="SANGAMO">SANGAMO</option>
+      <option value="Legy,55050010,DDS608">Legy</option>
+      <option value="Lexo,55000060,ST12">Lexo</option>
+      <option value="Ekoline,55000010,DD862">Ekoline</option>
+      <option value="Osaki,55050000,DDS994">Osaki</option>
+      <option value="Landis,55000140,ZMG310">Landis</option>
+      <option value="Ebasee,55050020,DDS862">Ebasee</option>
+      <option value="Actaris,55000070,ACE1000 SMO">Actaris</option>
+      <option value="Schlumberger,99100783,SL16">Schlumberger</option>
+      <option value="RHONA,35000460,ECM 14400/240 20-4-80/5">RHONA</option>
+      <option value="Huabang,55000050,DD862">Huabang</option>
+      <option value="ENERLUX,55000030,DD862">ENERLUX</option>
+      <option value="ITRON,55050020,ACE1000 SM0">ITRON</option>
+      <option value="BEKAM,55000130,DDS608">BEKAM</option>
+      <option value="General,99100557,SDM">General</option>
+      <option value="DRL,99100532,SDM">DRL</option>
+      <option value="Forceman,99100719,SDM">Forceman</option>
+      <option value="Delixi,120003552,SDM">Delixi</option>
+      <option value="Enerlux,55000030,DD862">Enerlux</option>
+      <option value="GENERAL ELECTRIC,55000630,FF72">GENERAL ELECTRIC</option>
+      <option value="EDMI,99100681,2DM">EDMI</option>
+      <option value="CHINT,55000110,17-42">CHINT</option>
+      <option value="SANGAMO,99100824,SDM">SANGAMO</option>
 
       <!-- Opciones WASION con modelos -->
-      <option value="WASION">WASION (DDZ101)</option>
-      <option value="WASION">WASION (DDS102)</option>
-      <option value="WASION">WASION (DDS103)</option>
-      <option value="WASION">WASION (DDZ201)</option>
-      <option value="WASION">WASION (DDS301)</option>
+      <option value="WASION,DDZ101">WASION (DDZ101)</option>
+      <option value="WASION,DDS102">WASION (DDS102)</option>
+      <option value="WASION,DDS103">WASION (DDS103)</option>
+      <option value="WASION,DDZ201">WASION (DDZ201)</option>
+      <option value="WASION,DDS301">WASION (DDS301)</option>
 
       <!-- Opciones adicionales -->
-      <option value="COMDIA">COMDIA</option>
-      <option value="ACLARA">ACLARA</option>
-      <option value="FNX">FNX</option>
-      <option value="FOREMAN">FOREMAN</option>
-      <option value="EMH">EMH</option>
-      <option value="Itron">Itron</option>
-      <option value="PROGOS">PROGOS</option>
-      <option value="TRANSFOVAL">TRANSFOVAL</option>
-      <option value="SCHAFFNER">SCHAFFNER</option>
-      <option value="OPEN">OPEN</option>
-      <option value="Scorpion">Scorpion</option>
-      <option value="LINYANG">LINYANG</option>
-      <option value="Sindelen">Sindelen</option>
-      <option value="HEXING">HEXING</option>
+      <option value="COMDIA,99100668,DDS608">COMDIA</option>
+      <option value="ACLARA,55050110,SGM1411">ACLARA</option>
+      <option value="FNX,55002150,DD862">FNX</option>
+      <option value="FOREMAN,55000300,dd862">FOREMAN</option>
+      <option value="EMH,55005030,NXT4">EMH</option>
+      <option value="Itron,99100733,SDM">Itron</option>
+      <option value="PROGOS,99250110,CM3H">PROGOS</option>
+      <option value="TRANSFOVAL,35001470,CM2H">TRANSFOVAL</option>
+      <option value="SCHAFFNER,35001430,CM3H">SCHAFFNER</option>
+      <option value="OPEN,99100747,SDM">OPEN</option>
+      <option value="Scorpion,55000150,SC-MR">Scorpion</option>
+      <option value="LINYANG,55002100,DDS71">LINYANG</option>
+      <option value="Sindelen,99100118,SDM">Sindelen</option>
+      <option value="HEXING,55007200,XHL34-2">HEXING</option>
       <!-- Aquí puedes seguir agregando los que falten -->
     </select>
 
@@ -97,7 +97,7 @@
       var numeroSerie = document.getElementById("numeroSerie").value;
 
       // Crear el texto para el código QR
-      var textoQR = marcaSeleccionada + "," + numeroSerie + "," + obtenerInformacionAdicional(marcaSeleccionada);
+      var textoQR = marcaSeleccionada.split(",")[0] + "," + numeroSerie + "," + marcaSeleccionada.split(",")[1] + "," + marcaSeleccionada.split(",")[2];
 
       // Generar el código QR
       var qrcode = new QRCode("qrcode");
@@ -108,94 +108,6 @@
       document.getElementById("marca").value = "";
       document.getElementById("numeroSerie").value = "";
       document.getElementById("qrcode").innerHTML = "";
-    }
-
-    // Función para obtener información adicional según la marca
-    function obtenerInformacionAdicional(marca) {
-      switch (marca) {
-        // Casos existentes
-        case "Legy":
-          return "55050010,DDS608";
-        case "Lexo":
-          return "55000060,ST12";
-        case "Ekoline":
-          return "55000010,DD862";
-        case "Osaki":
-          return "55050000,DDS994";
-        case "Landis":
-          return "55000140,ZMG310";
-        case "Ebasee":
-          return "55050020,DDS862";
-        case "Actaris":
-          return "55000070,ACE1000 SMO";
-        case "Schlumberger":
-          return "99100783,SL16";
-        case "RHONA":
-          return "35000460,ECM 14400/240 20-4-80/5";
-        case "Huabang":
-          return "55000050,DD862";
-        case "ENERLUX":
-          return "55000030,DD862";
-        case "ITRON":
-          return "55050020,ACE1000 SM0";
-        case "BEKAM":
-          return "55000130,DDS608";
-        case "General":
-          return "99100557,SDM";
-        case "DRL":
-          return "99100532,SDM";
-        case "Forceman":
-          return "99100719,SDM";
-        case "Delixi":
-          return "120003552,SDM";
-        case "Enerlux":
-          return "55000030,DD862";
-        case "GENERAL ELECTRIC":
-          return "55000630,FF72";
-        case "EDMI":
-          return "99100681,2DM";
-        case "CHINT":
-          return "55000110,17-42";
-        case "SANGAMO":
-          return "99100824,SDM";
-
-        // WASION solo regresará el nombre WASION
-        case "WASION":
-          return "";
-
-        // Nuevos casos agregados
-        case "COMDIA":
-          return "99100668,DDS608";
-        case "ACLARA":
-          return "55050110,SGM1411";
-        case "FNX":
-          return "55002150,DD862";
-        case "FOREMAN":
-          return "55000300,dd862";
-        case "EMH":
-          return "55005030,NXT4";
-        case "Itron":
-          return "99100733,SDM";
-        case "PROGOS":
-          return "99250110,CM3H";
-        case "TRANSFOVAL":
-          return "35001470,CM2H";
-        case "SCHAFFNER":
-          return "35001430,CM3H";
-        case "OPEN":
-          return "99100747,SDM";
-        case "Scorpion":
-          return "55000150,SC-MR";
-        case "LINYANG":
-          return "55002100,DDS71";
-        case "Sindelen":
-          return "99100118,SDM";
-        case "HEXING":
-          return "55007200,XHL34-2";
-        // Puedes continuar con más marcas y modelos aquí
-        default:
-          return "";
-      }
     }
   </script>
 
