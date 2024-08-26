@@ -57,11 +57,11 @@
       <option value="SANGAMO">SANGAMO</option>
 
       <!-- Opciones WASION con modelos -->
-      <option value="WASION_DDZ101">WASION (DDZ101)</option>
-      <option value="WASION_DDS102">WASION (DDS102)</option>
-      <option value="WASION_DDS103">WASION (DDS103)</option>
-      <option value="WASION_DDZ201">WASION (DDZ201)</option>
-      <option value="WASION_DDS301">WASION (DDS301)</option>
+      <option value="WASION">WASION (DDZ101)</option>
+      <option value="WASION">WASION (DDS102)</option>
+      <option value="WASION">WASION (DDS103)</option>
+      <option value="WASION">WASION (DDZ201)</option>
+      <option value="WASION">WASION (DDS301)</option>
 
       <!-- Opciones adicionales -->
       <option value="COMDIA">COMDIA</option>
@@ -96,11 +96,8 @@
       var marcaSeleccionada = document.getElementById("marca").value;
       var numeroSerie = document.getElementById("numeroSerie").value;
 
-      // Obtener información adicional según la marca seleccionada
-      var informacionAdicional = obtenerInformacionAdicional(marcaSeleccionada);
-
       // Crear el texto para el código QR
-      var textoQR = marcaSeleccionada + "," + numeroSerie + "," + informacionAdicional;
+      var textoQR = marcaSeleccionada + "," + numeroSerie + "," + obtenerInformacionAdicional(marcaSeleccionada);
 
       // Generar el código QR
       var qrcode = new QRCode("qrcode");
@@ -162,17 +159,9 @@
         case "SANGAMO":
           return "99100824,SDM";
 
-        // Casos WASION con diferentes modelos
-        case "WASION_DDZ101":
-          return "55002180,DDZ101";
-        case "WASION_DDS102":
-          return "55007210,DDS102";
-        case "WASION_DDS103":
-          return "55007300,DDS103";
-        case "WASION_DDZ201":
-          return "55007400,DDZ201";
-        case "WASION_DDS301":
-          return "55007500,DDS301";
+        // WASION solo regresará el nombre WASION
+        case "WASION":
+          return "";
 
         // Nuevos casos agregados
         case "COMDIA":
