@@ -56,13 +56,10 @@
       <option value="CHINT,55000110,17-42">CHINT</option>
       <option value="SANGAMO,99100824,SDM">SANGAMO</option>
 
-<!-- Opciones WASION con modelos y datos adicionales -->
-<option value="WASION,55000001,DDZ101">WASION (DDZ101)</option>
-<option value="WASION,55000002,DDS102">WASION (DDS102)</option>
-<option value="WASION,55000003,DDS103">WASION (DDS103)</option>
-<option value="WASION,55000004,DDZ201">WASION (DDZ201)</option>
-<option value="WASION,55000005,DDS301">WASION (DDS301)</option>
-
+      <!-- Opciones WASION con modelos y datos adicionales -->
+      <option value="WASION,55070190,aMeter300 CT 1(10)A">WASION aMeter300 CT 1(10)A (55070190)</option>
+      <option value="WASION,55002180,DDZ101 5(100)A RF">WASION DDZ101 5(100)A RF (55002180)</option>
+      <option value="WASION,55070200,aMeter300 DC 5(100)A">WASION aMeter300 DC 5(100)A (55070200)</option>
 
       <!-- Opciones adicionales -->
       <option value="COMDIA,99100668,DDS608">COMDIA</option>
@@ -79,7 +76,6 @@
       <option value="LINYANG,55002100,DDS71">LINYANG</option>
       <option value="Sindelen,99100118,SDM">Sindelen</option>
       <option value="HEXING,55007200,XHL34-2">HEXING</option>
-      <!-- Aquí puedes seguir agregando los que falten -->
     </select>
 
     <input type="text" id="numeroSerie" placeholder="Ingresa número de serie">
@@ -93,19 +89,18 @@
 
   <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   <script>
-function generarQR() {
-    var marcaSeleccionada = document.getElementById("marca").value;
-    var numeroSerie = document.getElementById("numeroSerie").value;
+    function generarQR() {
+        var marcaSeleccionada = document.getElementById("marca").value;
+        var numeroSerie = document.getElementById("numeroSerie").value;
 
-    // Crear el texto para el código QR
-    var partes = marcaSeleccionada.split(",");
-    var textoQR = partes[0] + "," + numeroSerie + "," + partes[1] + "," + partes[2];
+        // Crear el texto para el código QR
+        var partes = marcaSeleccionada.split(",");
+        var textoQR = partes[0] + "," + numeroSerie + "," + partes[1] + "," + partes[2];
 
-    // Generar el código QR
-    var qrcode = new QRCode("qrcode");
-    qrcode.makeCode(textoQR);
-}
-
+        // Generar el código QR
+        var qrcode = new QRCode("qrcode");
+        qrcode.makeCode(textoQR);
+    }
 
     function limpiarQR() {
       document.getElementById("marca").value = "";
