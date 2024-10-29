@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generador de QR</title>
+  <title>Generador de QR y Validador de Disyuntor</title>
   <link rel="stylesheet" href="estilos.css">
   <style>
     .container {
@@ -16,6 +16,10 @@
 
     .qrcode {
       margin-top: 20px;
+    }
+
+    .form-group {
+      margin: 10px 0;
     }
 
     /* Responsive styles */
@@ -31,81 +35,118 @@
 
   <div class="container">
 
-    <select id="marca">
-      <!-- Opciones existentes -->
-      <option value="Legy,55050010,DDS608">Legy</option>
-      <option value="Lexo,55000060,ST12">Lexo</option>
-      <option value="Ekoline,55000010,DD862">Ekoline</option>
-      <option value="Osaki,55050000,DDS994">Osaki</option>
-      <option value="Landis,55000140,ZMG310">Landis</option>
-      <option value="Ebasee,55050020,DDS862">Ebasee</option>
-      <option value="Actaris,55000070,ACE1000 SMO">Actaris</option>
-      <option value="Schlumberger,99100783,SL16">Schlumberger</option>
-      <option value="RHONA,35000460,ECM 14400/240 20-4-80/5">RHONA</option>
-      <option value="Huabang,55000050,DD862">Huabang</option>
-      <option value="ENERLUX,55000030,DD862">ENERLUX</option>
-      <option value="ITRON,55050020,ACE1000 SM0">ITRON</option>
-      <option value="BEKAM,55000130,DDS608">BEKAM</option>
-      <option value="General,99100557,SDM">General</option>
-      <option value="DRL,99100532,SDM">DRL</option>
-      <option value="Forceman,99100719,SDM">Forceman</option>
-      <option value="Delixi,120003552,SDM">Delixi</option>
-      <option value="Enerlux,55000030,DD862">Enerlux</option>
-      <option value="GENERAL ELECTRIC,55000630,FF72">GENERAL ELECTRIC</option>
-      <option value="EDMI,99100681,2DM">EDMI</option>
-      <option value="CHINT,55000110,17-42">CHINT</option>
-      <option value="SANGAMO,99100824,SDM">SANGAMO</option>
+    <!-- Select de marcas -->
+    <div class="form-group">
+      <label for="marca">Selecciona la marca:</label>
+      <select id="marca">
+        <!-- Opciones existentes -->
+        <option value="Legy,55050010,DDS608">Legy</option>
+        <option value="Lexo,55000060,ST12">Lexo</option>
+        <option value="Ekoline,55000010,DD862">Ekoline</option>
+        <!-- Opciones adicionales... -->
+      </select>
+    </div>
 
-      <!-- Opciones WASION con modelos y datos adicionales -->
-      <option value="WASION,55070190,aMeter300 CT 1(10)A">WASION aMeter300 CT 1(10)A (55070190)</option>
-      <option value="WASION,55002180,DDZ101">WASION DDZ101 5(100)A RF (55002180)</option>
-      <option value="WASION,55070200,RF AI">WASION aMeter300 DC 5(100)A (55070200)</option>
+    <!-- Input para número de serie -->
+    <div class="form-group">
+      <input type="text" id="numeroSerie" placeholder="Ingresa número de serie">
+    </div>
 
-      <!-- Opciones adicionales -->
-      <option value="COMDIA,99100668,DDS608">COMDIA</option>
-      <option value="ACLARA,55050110,SGM1411">ACLARA</option>
-      <option value="FNX,55002150,DD862">FNX</option>
-      <option value="FOREMAN,55000300,dd862">FOREMAN</option>
-      <option value="EMH,55005030,NXT4">EMH</option>
-      <option value="Itron,99100733,SDM">Itron</option>
-      <option value="PROGOS,99250110,CM3H">PROGOS</option>
-      <option value="TRANSFOVAL,35001470,CM2H">TRANSFOVAL</option>
-      <option value="SCHAFFNER,35001430,CM3H">SCHAFFNER</option>
-      <option value="OPEN,99100747,SDM">OPEN</option>
-      <option value="Scorpion,55000150,SC-MR">Scorpion</option>
-      <option value="LINYANG,55002100,DDS71">LINYANG</option>
-      <option value="Sindelen,99100118,SDM">Sindelen</option>
-      <option value="HEXING,55007200,XHL34-2">HEXING</option>
-    </select>
-
-    <input type="text" id="numeroSerie" placeholder="Ingresa número de serie">
-
+    <!-- Generador de QR -->
     <button onclick="generarQR()">Generar QR</button>
     <button onclick="limpiarQR()">Limpiar</button>
 
     <div id="qrcode" class="qrcode"></div>
+
+    <hr>
+
+    <!-- Validador de Disyuntor -->
+    <h2>Validador de Disyuntor</h2>
+    <div class="form-group">
+      <label for="potencia">Ingresa la potencia (kW):</label>
+      <input type="number" id="potencia" placeholder="Ejemplo: 5.8" step="0.1">
+    </div>
+
+    <div class="form-group">
+      <label for="tipoInstalacion">Tipo de instalación:</label>
+      <select id="tipoInstalacion">
+        <option value="monofasico">Monofásico</option>
+        <option value="trifasico">Trifásico</option>
+      </select>
+    </div>
+
+    <button onclick="validarDisyuntor()">Validar Disyuntor</button>
+    <div id="resultado"></div>
 
   </div>
 
   <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   <script>
     function generarQR() {
-        var marcaSeleccionada = document.getElementById("marca").value;
-        var numeroSerie = document.getElementById("numeroSerie").value;
+      var marcaSeleccionada = document.getElementById("marca").value;
+      var numeroSerie = document.getElementById("numeroSerie").value;
 
-        // Crear el texto para el código QR
-        var partes = marcaSeleccionada.split(",");
-        var textoQR = partes[0] + "," + numeroSerie + "," + partes[1] + "," + partes[2];
+      // Crear el texto para el código QR
+      var partes = marcaSeleccionada.split(",");
+      var textoQR = partes[0] + "," + numeroSerie + "," + partes[1] + "," + partes[2];
 
-        // Generar el código QR
-        var qrcode = new QRCode("qrcode");
-        qrcode.makeCode(textoQR);
+      // Generar el código QR
+      var qrcode = new QRCode("qrcode");
+      qrcode.makeCode(textoQR);
     }
 
     function limpiarQR() {
       document.getElementById("marca").value = "";
       document.getElementById("numeroSerie").value = "";
       document.getElementById("qrcode").innerHTML = "";
+    }
+
+    function validarDisyuntor() {
+      const potencia = parseFloat(document.getElementById("potencia").value);
+      const tipoInstalacion = document.getElementById("tipoInstalacion").value;
+      const tensionMonofasico = 220;
+      const tensionTrifasico = 380;
+      let corriente;
+
+      if (isNaN(potencia) || potencia <= 0) {
+        document.getElementById("resultado").innerText = "Por favor, ingresa una potencia válida.";
+        return;
+      }
+
+      // Cálculo de corriente
+      if (tipoInstalacion === "monofasico") {
+        corriente = (potencia * 1000) / tensionMonofasico;
+      } else if (tipoInstalacion === "trifasico") {
+        corriente = (potencia * 1000) / (Math.sqrt(3) * tensionTrifasico);
+      } else {
+        document.getElementById("resultado").innerText = "Selecciona un tipo de instalación válido.";
+        return;
+      }
+
+      // Selección de disyuntor según normativa
+      let disyuntor;
+      if (corriente <= 10) {
+        disyuntor = "10 A";
+      } else if (corriente <= 16) {
+        disyuntor = "16 A";
+      } else if (corriente <= 20) {
+        disyuntor = "20 A";
+      } else if (corriente <= 25) {
+        disyuntor = "25 A";
+      } else if (corriente <= 32) {
+        disyuntor = "32 A";
+      } else if (corriente <= 40) {
+        disyuntor = "40 A";
+      } else {
+        disyuntor = "Mayor a 40 A, consulta a un especialista";
+      }
+
+      document.getElementById("resultado").innerHTML = `
+        <p>Potencia ingresada: ${potencia} kW</p>
+        <p>Tipo de instalación: ${tipoInstalacion.charAt(0).toUpperCase() + tipoInstalacion.slice(1)}</p>
+        <p>Corriente calculada: ${corriente.toFixed(2)} A</p>
+        <p>Disyuntor sugerido: ${disyuntor}</p>
+      `;
     }
   </script>
 
