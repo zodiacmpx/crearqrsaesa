@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +13,6 @@
       margin: 0;
       padding: 0;
     }
-
     .container {
       max-width: 90%;
       margin: 20px auto;
@@ -24,11 +22,9 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
-
     h2 {
       color: #4a90e2;
     }
-
     .form-group {
       margin: 10px 0;
       display: flex;
@@ -36,12 +32,10 @@
       align-items: center;
       gap: 10px;
     }
-
     label {
       font-weight: bold;
       margin-right: 5px;
     }
-
     select,
     input[type="text"],
     input[type="number"],
@@ -54,22 +48,18 @@
       max-width: 400px;
       text-align: center;
     }
-
     button {
       background-color: #4a90e2;
       color: #fff;
       cursor: pointer;
       border: none;
     }
-
     button:hover {
       background-color: #357ABD;
     }
-
     .qrcode {
       margin-top: 20px;
     }
-
     /* Responsive styles */
     @media screen and (max-width: 600px) {
       .container {
@@ -78,11 +68,8 @@
     }
   </style>
 </head>
-
 <body>
-
   <div class="container">
-
     <!-- Select de marcas -->
     <div class="form-group">
       <label for="marca">Selecciona la marca:</label>
@@ -126,49 +113,40 @@
         <option value="LINYANG,55002100,DDS71">LINYANG</option>
         <option value="Sindelen,99100118,SDM">Sindelen</option>
         <option value="HEXING,55007200,XHL34-2">HEXING</option>
+        <!-- Nuevo medidor agregado -->
+        <option value="Elster,4912662,55000150,A150">Elster</option>
       </select>
     </div>
-
     <!-- Input para número de serie -->
     <div class="form-group">
       <input type="text" id="numeroSerie" placeholder="Ingresa número de serie">
     </div>
-
     <!-- Generador de QR -->
     <button onclick="generarQR()">Generar QR</button>
     <button onclick="limpiarQR()">Limpiar</button>
-
     <div id="qrcode" class="qrcode"></div>
-
   </div>
-
   <!-- Script actualizado desde CDNJS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     function generarQR() {
       var marcaSeleccionada = document.getElementById("marca").value;
       var numeroSerie = document.getElementById("numeroSerie").value;
-
       var partes = marcaSeleccionada.split(",");
       var textoQR = partes[0] + "," + numeroSerie + "," + partes[1] + "," + partes[2];
-
       // Limpiar el QR anterior si existe
       document.getElementById("qrcode").innerHTML = "";
-
       var qrcode = new QRCode(document.getElementById("qrcode"), {
         text: textoQR,
         width: 256,
         height: 256,
       });
     }
-
     function limpiarQR() {
       document.getElementById("marca").value = "";
       document.getElementById("numeroSerie").value = "";
       document.getElementById("qrcode").innerHTML = "";
     }
   </script>
-
 </body>
-
 </html>
