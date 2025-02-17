@@ -4,16 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generador de QR</title>
-  <link rel="stylesheet" href="estilos.css">
   <style>
+    :root {
+      --primary-color: #4a90e2;
+      --secondary-color: #357ABD;
+      --background-color: #f4f6f9;
+      --text-color: #333;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f6f9;
-      color: #333;
+      background-color: var(--background-color);
+      color: var(--text-color);
       margin: 0;
       padding: 0;
     }
-    .container {
+
+    main {
       max-width: 90%;
       margin: 20px auto;
       padding: 20px;
@@ -22,9 +29,11 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
+
     h2 {
-      color: #4a90e2;
+      color: var(--primary-color);
     }
+
     .form-group {
       margin: 10px 0;
       display: flex;
@@ -32,14 +41,8 @@
       align-items: center;
       gap: 10px;
     }
-    label {
-      font-weight: bold;
-      margin-right: 5px;
-    }
-    select,
-    input[type="text"],
-    input[type="number"],
-    button {
+
+    .form-control {
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
@@ -48,32 +51,48 @@
       max-width: 400px;
       text-align: center;
     }
-    button {
-      background-color: #4a90e2;
-      color: #fff;
-      cursor: pointer;
+
+    .btn {
+      padding: 10px;
+      border-radius: 5px;
       border: none;
+      font-size: 1rem;
+      cursor: pointer;
     }
-    button:hover {
-      background-color: #357ABD;
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #fff;
     }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+    }
+
     .qrcode {
       margin-top: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
     }
-    /* Responsive styles */
-    @media screen and (max-width: 600px) {
-      .container {
-        padding: 15px;
-      }
+
+    .qrcode.visible {
+      opacity: 1;
+    }
+
+    #error-message {
+      color: red;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <main>
+    <h2>Generador de Código QR</h2>
+
     <!-- Select de marcas -->
     <div class="form-group">
       <label for="marca">Selecciona la marca:</label>
-      <select id="marca">
+      <select id="marca" class="form-control">
         <option value="Legy,55050010,DDS608">Legy</option>
         <option value="Lexo,55000060,ST12">Lexo</option>
         <option value="Ekoline,55000010,DD862">Ekoline</option>
@@ -113,39 +132,66 @@
         <option value="LINYANG,55002100,DDS71">LINYANG</option>
         <option value="Sindelen,99100118,SDM">Sindelen</option>
         <option value="HEXING,55007200,XHL34-2">HEXING</option>
-        <!-- Nuevo medidor agregado -->
         <option value="Elster,4912662,55000150,A150">Elster</option>
       </select>
     </div>
+
     <!-- Input para número de serie -->
     <div class="form-group">
-      <input type="text" id="numeroSerie" placeholder="Ingresa número de serie">
+      <input type="text" id="numeroSerie" class="form-control" placeholder="Ingresa número de serie">
     </div>
-    <!-- Generador de QR -->
-    <button onclick="generarQR()">Generar QR</button>
-    <button onclick="limpiarQR()">Limpiar</button>
+
+    <!-- Mensaje de error -->
+    <div id="error-message">Por favor, completa todos los campos.</div>
+
+    <!-- Botones -->
+    <div class="form-group">
+      <button onclick="generarQR()" class="btn btn-primary">Generar QR</button>
+      <button onclick="limpiarQR()" class="btn">Limpiar</button>
+    </div>
+
+    <!-- Contenedor del QR -->
     <div id="qrcode" class="qrcode"></div>
-  </div>
-  <!-- Script actualizado desde CDNJS -->
+  </main>
+
+  <!-- Script para generar QR -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    function generarQR() {
-      var marcaSeleccionada = document.getElementById("marca").value;
-      var numeroSerie = document.getElementById("numeroSerie").value;
-      var partes = marcaSeleccionada.split(",");
-      var textoQR = partes[0] + "," + numeroSerie + "," + partes[1] + "," + partes[2];
-      // Limpiar el QR anterior si existe
+    function resetField(id) {
+      document.getElementById(id).value = "";
+    }
+
+    function limpiarQR() {
+      resetField("marca");
+      resetField("numeroSerie");
       document.getElementById("qrcode").innerHTML = "";
-      var qrcode = new QRCode(document.getElementById("qrcode"), {
+      document.getElementById("qrcode").classList.remove("visible");
+      document.getElementById("error-message").style.display = "none";
+    }
+
+    function generarQR() {
+      const marcaSeleccionada = document.getElementById("marca").value;
+      const numeroSerie = document.getElementById("numeroSerie").value.trim();
+      const errorMessage = document.getElementById("error-message");
+
+      if (!marcaSeleccionada || !numeroSerie) {
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      errorMessage.style.display = "none";
+
+      const partes = marcaSeleccionada.split(",");
+      const textoQR = `${partes[0]},${numeroSerie},${partes[1]},${partes[2]}`;
+
+      document.getElementById("qrcode").innerHTML = "";
+      new QRCode(document.getElementById("qrcode"), {
         text: textoQR,
         width: 256,
         height: 256,
       });
-    }
-    function limpiarQR() {
-      document.getElementById("marca").value = "";
-      document.getElementById("numeroSerie").value = "";
-      document.getElementById("qrcode").innerHTML = "";
+
+      document.getElementById("qrcode").classList.add("visible");
     }
   </script>
 </body>
